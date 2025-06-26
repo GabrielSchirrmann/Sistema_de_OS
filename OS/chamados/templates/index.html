@@ -1,26 +1,28 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Ordens de Serviço</title>
 </head>
 <body>
-    <h1>Lista de Ordens de Serviço</h1>
+    <h1>Nova Ordem de Serviço</h1>
 
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Criar Ordem de Serviço</button>
+    </form>
+
+    <hr>
+
+    <h2>Ordens existentes</h2>
     {% if ordens %}
         <ul>
             {% for os in ordens %}
-                <li>
-                    <strong>Cliente:</strong> {{ os.cliente }} <br>
-                    <strong>Status:</strong> {{ os.status }} <br>
-                    <strong>Descrição:</strong> {{ os.descricao }} <br>
-                    <strong>Data de Criação:</strong> {{ os.data_criacao|date:"d/m/Y H:i" }}
-                </li>
-                <hr>
+                <li>{{ os.cliente }} - {{ os.status }}</li>
             {% endfor %}
         </ul>
     {% else %}
-        <p>Nenhuma ordem de serviço encontrada.</p>
+        <p>Nenhuma ordem registrada ainda.</p>
     {% endif %}
 </body>
 </html>
